@@ -19,14 +19,12 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--charcoal); min-height: 100vh; }
 
-  /* --- STICKY NAV --- */
   #jump-nav { position: sticky; top: 0; background: rgba(247,243,238,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); z-index: 100; padding: 0.6rem 1.25rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   #jump-nav::-webkit-scrollbar { display: none; }
   #jump-nav a { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 20px; margin-right: 0.35rem; border: 1px solid transparent; transition: all 0.2s; white-space: nowrap; }
   #jump-nav a:hover { color: var(--accent); border-color: var(--accent-light); background: var(--warm-white); }
   #jump-nav a.active { color: var(--accent); border-color: var(--accent); background: var(--warm-white); }
 
-  /* --- HERO --- */
   .hero { background: var(--charcoal); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(192,98,74,0.04) 40px, rgba(192,98,74,0.04) 41px); pointer-events: none; }
   .hero-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 4px; margin-bottom: 1.25rem; }
@@ -34,7 +32,6 @@
   .hero h1 em { color: var(--accent); font-style: italic; }
   .hero p { color: #888; font-size: 0.95rem; font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.7; }
 
-  /* --- MAIN --- */
   .page-wrap { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
 
   .section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 60px; }
@@ -42,10 +39,8 @@
   .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
   .section-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; opacity: 0.85; }
   .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); }
-
   .section-intro { font-size: 0.92rem; line-height: 1.75; font-weight: 300; color: var(--mid); margin-bottom: 1.25rem; }
 
-  /* --- CARDS --- */
   .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
   .card { background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.25rem; text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s; display: block; }
   .card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(192,98,74,0.1); }
@@ -54,7 +49,6 @@
   .card-desc { font-size: 0.8rem; color: var(--mid); font-weight: 300; line-height: 1.55; }
   .card-full { grid-column: 1 / -1; }
 
-  /* --- SINGLE LINK ROW --- */
   .link-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1.1rem; background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: inherit; transition: border-color 0.2s; margin-bottom: 0.65rem; }
   .link-row:hover { border-color: var(--accent); }
   .link-row:last-child { margin-bottom: 0; }
@@ -64,11 +58,9 @@
   .link-row-desc { font-size: 0.78rem; color: var(--mid); font-weight: 300; line-height: 1.5; }
   .link-row-arrow { font-size: 0.85rem; color: var(--accent-light); flex-shrink: 0; }
 
-  /* --- CALLOUT --- */
   .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.1rem 0; font-size: 0.88rem; line-height: 1.65; color: var(--mid); font-weight: 300; }
   .callout strong { color: var(--charcoal); font-weight: 500; }
 
-  /* --- FOOTER --- */
   .footer { text-align: center; padding: 3rem 2rem; background: var(--charcoal); }
   .footer p { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
   .footer span { color: var(--light); font-size: 0.82rem; font-weight: 300; }
@@ -88,6 +80,7 @@
   <a href="#weather">Weather</a>
   <a href="#grocery">Grocery</a>
   <a href="#food">Food</a>
+  <a href="#delivery">Delivery</a>
   <a href="#shopping">Shopping</a>
   <a href="#explore">Explore</a>
   <a href="#transit">Transit</a>
@@ -125,16 +118,32 @@
       <span class="section-icon">&#127837;</span>
       <span class="section-title">Grocery</span>
     </div>
-    <p class="section-intro">You are steps away from groceries -- No Frills is literally around the corner.</p>
+    <p class="section-intro">You are steps away from everything you need -- a full grocery store, a laundromat, and a 24/7 convenience store are all within an 8-minute walk.</p>
     <a class="link-row" href="https://www.google.com/maps/search/No+Frills+700+Balmoral+Dr+Brampton" target="_blank" rel="noopener">
-      <span class="link-row-icon">&#128205;</span>
+      <span class="link-row-icon">&#128722;</span>
       <div class="link-row-body">
         <div class="link-row-title">No Frills -- 700 Balmoral Dr</div>
-        <div class="link-row-desc">8-minute walk -- groceries, fresh produce, everyday essentials</div>
+        <div class="link-row-desc">8-minute walk -- full grocery store with fresh produce and everyday essentials</div>
       </div>
       <span class="link-row-arrow">&#8594;</span>
     </a>
-    <div class="callout">The same plaza at 700 Balmoral Dr also has the nearest laundromat -- Southgate Coin Laundry -- if you need it during your stay.</div>
+    <a class="link-row" href="https://www.google.com/maps/search/convenience+store+700+Balmoral+Dr+Brampton" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128336;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">24/7 Convenience Store -- 700 Balmoral Dr</div>
+        <div class="link-row-desc">Same plaza as No Frills -- open around the clock for late-night essentials</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <a class="link-row" href="https://www.instacart.com/store/no-frills/storefront" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128666;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">Instacart -- Grocery Delivery</div>
+        <div class="link-row-desc">Order from No Frills and other local stores -- delivered to your door in as fast as 1 hour</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <div class="callout">The 700 Balmoral Dr plaza also has <strong>Southgate Coin Laundry</strong> if you need laundry done during your stay.</div>
   </div>
 
   <!-- FOOD -->
@@ -150,15 +159,36 @@
         <div class="card-title">Restaurants in Brampton</div>
         <div class="card-desc">1,100+ restaurants rated and reviewed on TripAdvisor -- filter by cuisine, price, and neighbourhood</div>
       </a>
-      <a class="card" href="https://www.google.com/search?q=best+restaurants+near+22+Deeside+Crescent+Brampton" target="_blank" rel="noopener">
+      <a class="card" href="https://www.google.com/search?q=restaurants+near+me+brampton" target="_blank" rel="noopener">
         <div class="card-label">Near You</div>
-        <div class="card-title">Food Near the Property</div>
-        <div class="card-desc">Google search scoped to your immediate area</div>
+        <div class="card-title">Food Near You</div>
+        <div class="card-desc">Open on your phone -- results based on your current location</div>
       </a>
       <a class="card" href="https://www.google.com/search?q=best+indian+food+brampton+ontario" target="_blank" rel="noopener">
         <div class="card-label">Local Favourite</div>
         <div class="card-title">Indian &amp; South Asian</div>
         <div class="card-desc">Brampton is known for some of the best South Asian food outside of India</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="section" id="delivery">
+    <div class="section-header">
+      <span class="section-icon">&#128666;</span>
+      <span class="section-title">Food Delivery</span>
+    </div>
+    <p class="section-intro">Prefer to stay in? Both major delivery platforms are active in the area with great coverage and quick delivery times.</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.ubereats.com/ca/city/brampton-on" target="_blank" rel="noopener">
+        <div class="card-label">Delivery</div>
+        <div class="card-title">Uber Eats</div>
+        <div class="card-desc">Hundreds of restaurants delivering to your door -- track your order in real time</div>
+      </a>
+      <a class="card" href="https://www.doordash.com/en-CA/food-delivery/brampton-on/" target="_blank" rel="noopener">
+        <div class="card-label">Delivery</div>
+        <div class="card-title">DoorDash</div>
+        <div class="card-desc">Food, grocery, and convenience delivery -- great selection in Brampton</div>
       </a>
     </div>
   </div>
@@ -174,7 +204,7 @@
       <a class="card" href="https://www.bramaleacitycentre.com" target="_blank" rel="noopener">
         <div class="card-label">In Brampton</div>
         <div class="card-title">Bramalea City Centre</div>
-        <div class="card-desc">300+ stores, major anchors, right in the city. 10 min by car.</div>
+        <div class="card-desc">300+ stores, major anchors, right in the city. About 10 min by car.</div>
       </a>
       <a class="card" href="https://www.shopsquareone.com" target="_blank" rel="noopener">
         <div class="card-label">Mississauga -- 20 min</div>
@@ -200,7 +230,7 @@
       <a class="card" href="https://www.google.com/maps/search/Chinguacousy+Park+Brampton" target="_blank" rel="noopener">
         <div class="card-label">City Park</div>
         <div class="card-title">Chinguacousy Park</div>
-        <div class="card-desc">Brampton's beloved landmark park -- splash pad, gardens, skating in winter</div>
+        <div class="card-desc">Brampton's beloved landmark park -- splash pad, gardens, skating rink in winter</div>
       </a>
       <a class="card" href="https://www.google.com/maps/search/Heart+Lake+Conservation+Area+Brampton" target="_blank" rel="noopener">
         <div class="card-label">Nature</div>
@@ -234,10 +264,10 @@
         <div class="card-title">GO Transit</div>
         <div class="card-desc">Trains and buses connecting Brampton to Toronto, Mississauga and the GTA</div>
       </a>
-      <a class="card card-full" href="https://www.google.com/maps/dir/22+Deeside+Crescent+Brampton" target="_blank" rel="noopener">
-        <div class="card-label">Directions</div>
-        <div class="card-title">Get Directions from the Property</div>
-        <div class="card-desc">Open Google Maps with the property as your starting point</div>
+      <a class="card card-full" href="https://www.google.com/maps/search/Brampton+Transit+near+me" target="_blank" rel="noopener">
+        <div class="card-label">Nearest Stop</div>
+        <div class="card-title">Find a Bus Stop Near You</div>
+        <div class="card-desc">Open on your phone to find the closest Brampton Transit stop to your current location</div>
       </a>
     </div>
   </div>
@@ -255,10 +285,10 @@
         <div class="card-title">Toronto Pearson (YYZ)</div>
         <div class="card-desc">Arrivals, departures, terminal maps, parking and ground transportation</div>
       </a>
-      <a class="card" href="https://www.google.com/maps/dir/22+Deeside+Crescent+Brampton/Toronto+Pearson+International+Airport" target="_blank" rel="noopener">
+      <a class="card" href="https://www.google.com/maps/dir/current+location/Toronto+Pearson+International+Airport" target="_blank" rel="noopener">
         <div class="card-label">Directions</div>
-        <div class="card-title">Property to Pearson</div>
-        <div class="card-desc">~10 min by car depending on traffic -- allow extra time during rush hour</div>
+        <div class="card-title">Get to Pearson</div>
+        <div class="card-desc">~10 min by car -- allow extra time during rush hour</div>
       </a>
     </div>
     <div class="callout">Terminal 1 handles most international flights. Terminal 3 handles select domestic and US routes. Check your boarding pass to confirm which terminal you need.</div>
