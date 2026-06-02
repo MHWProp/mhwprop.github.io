@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brampton Local Guide</title>
+<title>House Manual</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -19,289 +19,260 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--charcoal); min-height: 100vh; }
 
+  /* --- LOCK SCREEN --- */
+  #lock-screen { position: fixed; inset: 0; background: var(--charcoal); display: flex; align-items: center; justify-content: center; z-index: 1000; flex-direction: column; gap: 2rem; }
+  #lock-screen .lock-inner { text-align: center; padding: 3rem 2.5rem; background: #242424; border-radius: 16px; width: min(380px, 90vw); border: 1px solid #333; }
+  #lock-screen .lock-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  #lock-screen h2 { font-family: 'DM Serif Display', serif; color: #F7F3EE; font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 400; }
+  #lock-screen p { color: #888; font-size: 0.875rem; margin-bottom: 2rem; font-weight: 300; }
+  #lock-screen input { width: 100%; padding: 0.875rem 1.25rem; background: #1C1C1C; border: 1px solid #444; border-radius: 8px; color: #F7F3EE; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; font-family: 'DM Sans', sans-serif; margin-bottom: 1rem; outline: none; transition: border-color 0.2s; }
+  #lock-screen input:focus { border-color: var(--accent); }
+  #lock-screen button { width: 100%; padding: 0.875rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, transform 0.1s; }
+  #lock-screen button:hover { background: #A8503A; }
+  #lock-screen button:active { transform: scale(0.98); }
+  #lock-screen .error { color: #E07070; font-size: 0.8rem; margin-top: 0.75rem; height: 1rem; }
+
+  /* --- CONTENT --- */
+  #content { display: none; }
+  #content.visible { display: block; }
+
+  /* --- STICKY NAV --- */
   #jump-nav { position: sticky; top: 0; background: rgba(247,243,238,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); z-index: 100; padding: 0.6rem 1.25rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   #jump-nav::-webkit-scrollbar { display: none; }
   #jump-nav a { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 20px; margin-right: 0.35rem; border: 1px solid transparent; transition: all 0.2s; white-space: nowrap; }
   #jump-nav a:hover { color: var(--accent); border-color: var(--accent-light); background: var(--warm-white); }
   #jump-nav a.active { color: var(--accent); border-color: var(--accent); background: var(--warm-white); }
 
-  .hero { background: var(--charcoal); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(192,98,74,0.04) 40px, rgba(192,98,74,0.04) 41px); pointer-events: none; }
-  .hero-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 4px; margin-bottom: 1.25rem; }
-  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 6vw, 3.5rem); font-weight: 400; color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
-  .hero h1 em { color: var(--accent); font-style: italic; }
-  .hero p { color: #888; font-size: 0.95rem; font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.7; }
-
+  /* --- MAIN CONTENT --- */
   .page-wrap { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .page-header { border-bottom: 2px solid var(--charcoal); padding-bottom: 2rem; margin-bottom: 3rem; }
+  .property-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1rem; }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .page-header .subtitle { color: var(--mid); font-size: 0.9rem; font-weight: 300; font-style: italic; }
 
   .section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 60px; }
   .section:last-of-type { border-bottom: none; }
   .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
-  .section-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; opacity: 0.85; }
+  .section-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent-light); line-height: 1; flex-shrink: 0; }
   .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); }
-  .section-intro { font-size: 0.92rem; line-height: 1.75; font-weight: 300; color: var(--mid); margin-bottom: 1.25rem; }
 
-  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
-  .card { background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.25rem; text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s; display: block; }
-  .card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(192,98,74,0.1); }
-  .card-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-  .card-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--charcoal); margin-bottom: 0.35rem; line-height: 1.3; }
-  .card-desc { font-size: 0.8rem; color: var(--mid); font-weight: 300; line-height: 1.55; }
-  .card-full { grid-column: 1 / -1; }
+  .subsection { margin-bottom: 1.5rem; }
+  .subsection-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--accent-light); }
 
-  .link-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1.1rem; background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: inherit; transition: border-color 0.2s; margin-bottom: 0.65rem; }
-  .link-row:hover { border-color: var(--accent); }
-  .link-row:last-child { margin-bottom: 0; }
-  .link-row-icon { font-size: 1.3rem; flex-shrink: 0; }
-  .link-row-body { flex: 1; }
-  .link-row-title { font-size: 0.9rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.15rem; }
-  .link-row-desc { font-size: 0.78rem; color: var(--mid); font-weight: 300; line-height: 1.5; }
-  .link-row-arrow { font-size: 0.85rem; color: var(--accent-light); flex-shrink: 0; }
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 0.45rem 0 0.45rem 1.5rem; position: relative; font-size: 0.92rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+  ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent); font-weight: 400; }
+  ul li strong { font-weight: 500; color: var(--charcoal); }
 
-  .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.1rem 0; font-size: 0.88rem; line-height: 1.65; color: var(--mid); font-weight: 300; }
-  .callout strong { color: var(--charcoal); font-weight: 500; }
+  ol { padding-left: 1.5rem; }
+  ol li { padding: 0.45rem 0; font-size: 0.92rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+  ol li strong { font-weight: 500; }
 
-  .footer { text-align: center; padding: 3rem 2rem; background: var(--charcoal); }
-  .footer p { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
-  .footer span { color: var(--light); font-size: 0.82rem; font-weight: 300; }
+  .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.88rem; line-height: 1.6; color: var(--mid); font-weight: 300; }
+  .callout.warning { border-left-color: #B85C3A; background: #FAF0EC; color: #6B3A2A; }
+
+  .thank-you { text-align: center; padding: 3rem 2rem; background: var(--charcoal); border-radius: 12px; margin-top: 3rem; }
+  .thank-you p { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
+  .thank-you span { color: var(--light); font-size: 0.85rem; font-weight: 300; }
 
   @media (max-width: 600px) {
     .page-wrap { padding: 2rem 1.25rem 5rem; }
-    .card-grid { grid-template-columns: 1fr; }
-    .card-full { grid-column: 1; }
-    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .section-num { font-size: 1.8rem; }
     .section-title { font-size: 1.2rem; }
   }
 </style>
 </head>
 <body>
 
-<nav id="jump-nav">
-  <a href="#weather">Weather</a>
-  <a href="#grocery">Grocery</a>
-  <a href="#food">Food</a>
-  <a href="#delivery">Delivery</a>
-  <a href="#shopping">Shopping</a>
-  <a href="#explore">Explore</a>
-  <a href="#transit">Transit</a>
-  <a href="#airport">Airport</a>
-</nav>
-
-<div class="hero">
-  <span class="hero-tag">Brampton, Ontario</span>
-  <h1>Your <em>Local</em><br>Guide</h1>
-  <p>Everything you need to eat, explore, and get around during your stay. We keep this page updated -- bookmark it and check back anytime.</p>
+<div id="lock-screen">
+  <div class="lock-inner">
+    <span class="lock-icon">&#128274;</span>
+    <h2>Guest Access</h2>
+    <p>Please enter the access code provided by your host</p>
+    <input type="password" id="code-input" maxlength="4" placeholder="****" inputmode="numeric" />
+    <button onclick="checkCode()">Enter</button>
+    <div class="error" id="error-msg"></div>
+  </div>
 </div>
 
-<div class="page-wrap">
+<div id="content">
 
-  <!-- WEATHER -->
-  <div class="section" id="weather">
-    <div class="section-header">
-      <span class="section-icon">&#127748;</span>
-      <span class="section-title">Weather</span>
+  <nav id="jump-nav">
+    <a href="#access">Access</a>
+    <a href="#parking">Parking</a>
+    <a href="#guidelines">Guidelines</a>
+    <a href="#thermostat">Thermostat</a>
+    <a href="#tv">TV</a>
+    <a href="#washroom">Washroom</a>
+    <a href="#garbage">Garbage</a>
+    <a href="#laundry">Laundry</a>
+    <a href="#grocery">Grocery</a>
+    <a href="#checkout">Check-Out</a>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="page-header">
+      <span class="property-tag">Guest House Manual</span>
+      <h1>Your Home Away<br>From Home</h1>
+      <p class="subtitle">Everything you need for a comfortable stay.</p>
     </div>
-    <p class="section-intro">Brampton gets all four seasons. Summers are warm and humid (20-30C), winters can bring heavy snow. Always good to check before heading out.</p>
-    <a class="link-row" href="https://www.theweathernetwork.com/en/city/ca/ontario/brampton/current" target="_blank" rel="noopener">
-      <span class="link-row-icon">&#127754;</span>
-      <div class="link-row-body">
-        <div class="link-row-title">Brampton Current Weather</div>
-        <div class="link-row-desc">The Weather Network -- current conditions, hourly and 7-day forecast</div>
+
+    <!-- WELCOME -->
+    <div class="section" style="border-bottom: 1px solid var(--rule); margin-bottom: 3rem; padding-bottom: 3rem;">
+      <div class="section-header"><span class="section-num">&#9786;</span><span class="section-title">Welcome</span></div>
+      <p style="font-size:0.95rem; line-height:1.75; font-weight:300; color:var(--mid);">We are so glad to have you here! This guide covers everything you need to feel right at home. If anything comes up during your stay, do not hesitate to reach out -- we are happy to help.</p>
+    </div>
+
+    <!-- ACCESS -->
+    <div class="section" id="access">
+      <div class="section-header"><span class="section-num">1.</span><span class="section-title">Unit Access</span></div>
+      <ul>
+        <li>Once you know your arrival time, please let us know so we can arrange access for you.</li>
+        <li>For security purposes, access is strictly granted to the person who made the booking.</li>
+        <li><strong>Please have a valid ID ready at check-in</strong> -- it must match the name on the reservation. No exceptions.</li>
+      </ul>
+    </div>
+
+    <!-- PARKING -->
+    <div class="section" id="parking">
+      <div class="section-header"><span class="section-num">2.</span><span class="section-title">Parking</span></div>
+      <ul>
+        <li>You are welcome to use the driveway -- space for up to <strong>2 vehicles</strong>.</li>
+        <li>Please park on the <strong>left side near the lawn</strong>.</li>
+        <li>If two cars, park them in tandem -- one behind the other.</li>
+        <li>Street parking is also available during the day.</li>
+      </ul>
+    </div>
+
+    <!-- PATIO LIGHTS -->
+    <div class="section" id="patio">
+      <div class="section-header"><span class="section-num">3.</span><span class="section-title">Patio Lights</span></div>
+      <ul>
+        <li>The switch for the patio lights is located <strong>near the shed door</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- GUIDELINES -->
+    <div class="section" id="guidelines">
+      <div class="section-header"><span class="section-num">4.</span><span class="section-title">House Guidelines</span></div>
+      <p style="font-size:0.88rem; color:var(--mid); font-weight:300; margin-bottom:1.25rem; font-style:italic;">A few friendly reminders to keep things comfortable for everyone.</p>
+      <ul>
+        <li>No pets or visiting animals, please.</li>
+        <li>Smoking inside the house is not allowed.</li>
+        <li>Please remove shoes indoors, especially on carpets and rugs.</li>
+        <li>The space is set up for the number of guests on your reservation -- overnight visitors are not recommended.</li>
+        <li><strong>Quiet hours: 10 PM to 8 AM.</strong></li>
+        <li>Please enjoy meals in the dining area to keep the bedrooms clean.</li>
+        <li>The basement and backyard shed are not accessible during your stay.</li>
+        <li>Please do not tamper with fire alarms, temperature sensors, or the modem.</li>
+        <li>Linens and furnishings are provided with care -- please treat them gently to avoid extra charges.</li>
+        <li>Towels and bathroom supplies are in the <strong>hallway closet</strong>.</li>
+      </ul>
+      <div class="callout">If anything needs attention during your stay, just reach out -- we are always happy to help!</div>
+    </div>
+
+    <!-- THERMOSTAT -->
+    <div class="section" id="thermostat">
+      <div class="section-header"><span class="section-num">5.</span><span class="section-title">Thermostat</span></div>
+      <ul>
+        <li>The <strong>Nest thermostat</strong> is located behind the TV in the living room.</li>
+        <li>Adjust the temperature by rotating the outer ring.</li>
+        <li>Keep floor vents clear for even air circulation.</li>
+        <li>Please use the thermostat rather than opening windows or doors to control the temperature.</li>
+      </ul>
+    </div>
+
+    <!-- TV -->
+    <div class="section" id="tv">
+      <div class="section-header"><span class="section-num">6.</span><span class="section-title">TV</span></div>
+      <ul>
+        <li>Enjoy <strong>Netflix, Prime Video, and Roku</strong>!</li>
+        <li>Before heading out, please leave the remote on the TV stand.</li>
+      </ul>
+    </div>
+
+    <!-- WASHROOM -->
+    <div class="section" id="washroom">
+      <div class="section-header"><span class="section-num">7.</span><span class="section-title">Washroom</span></div>
+      <div class="callout warning">
+        <strong>Important -- Please Read</strong><br><br>
+        Do not flush toilet paper or any other items -- this includes tissues, paper towels, pads, wipes, flushable wipes, Q-tips, or tampons.<br><br>
+        Please dispose of all these items in the garbage bin. Make sure there is a liner in the bin for easier disposal.<br><br>
+        If the toilet becomes clogged, do not keep flushing -- it may overflow and cause damage. No water should ever reach the floor. If it does, dry it immediately and contact us right away.<br><br>
+        Any clogging or overflow caused by improper use will be the responsibility of the guest, including the cost of any repairs.
       </div>
-      <span class="link-row-arrow">&#8594;</span>
-    </a>
-  </div>
-
-  <!-- GROCERY -->
-  <div class="section" id="grocery">
-    <div class="section-header">
-      <span class="section-icon">&#127837;</span>
-      <span class="section-title">Grocery</span>
     </div>
-    <p class="section-intro">You are steps away from everything you need -- a full grocery store, a laundromat, and a 24/7 convenience store are all within an 8-minute walk.</p>
-    <a class="link-row" href="https://www.google.com/maps/search/No+Frills+700+Balmoral+Dr+Brampton" target="_blank" rel="noopener">
-      <span class="link-row-icon">&#128722;</span>
-      <div class="link-row-body">
-        <div class="link-row-title">No Frills -- 700 Balmoral Dr</div>
-        <div class="link-row-desc">8-minute walk -- full grocery store with fresh produce and everyday essentials</div>
-      </div>
-      <span class="link-row-arrow">&#8594;</span>
-    </a>
-    <a class="link-row" href="https://www.google.com/maps/search/convenience+store+700+Balmoral+Dr+Brampton" target="_blank" rel="noopener">
-      <span class="link-row-icon">&#128336;</span>
-      <div class="link-row-body">
-        <div class="link-row-title">24/7 Convenience Store -- 700 Balmoral Dr</div>
-        <div class="link-row-desc">Same plaza as No Frills -- open around the clock for late-night essentials</div>
-      </div>
-      <span class="link-row-arrow">&#8594;</span>
-    </a>
-    <a class="link-row" href="https://www.instacart.com/store/no-frills/storefront" target="_blank" rel="noopener">
-      <span class="link-row-icon">&#128666;</span>
-      <div class="link-row-body">
-        <div class="link-row-title">Instacart -- Grocery Delivery</div>
-        <div class="link-row-desc">Order from No Frills and other local stores -- delivered to your door in as fast as 1 hour</div>
-      </div>
-      <span class="link-row-arrow">&#8594;</span>
-    </a>
-    <div class="callout">The 700 Balmoral Dr plaza also has <strong>Southgate Coin Laundry</strong> if you need laundry done during your stay.</div>
-  </div>
 
-  <!-- FOOD -->
-  <div class="section" id="food">
-    <div class="section-header">
-      <span class="section-icon">&#127860;</span>
-      <span class="section-title">Food &amp; Drink</span>
+    <!-- GARBAGE -->
+    <div class="section" id="garbage">
+      <div class="section-header"><span class="section-num">8.</span><span class="section-title">Garbage and Recycling</span></div>
+      <ul>
+        <li>Bins are located on the <strong>side of the house</strong>.</li>
+        <li><strong>Blue bin</strong> for recycling -- <strong>black bin</strong> for garbage.</li>
+        <li>Garbage and recycling collection is managed on a regular schedule -- no action needed from you.</li>
+      </ul>
     </div>
-    <p class="section-intro">Brampton is one of Canada's most diverse cities -- the food scene reflects it. South Asian, Caribbean, Portuguese, Italian, West African -- incredible variety at every price point.</p>
-    <div class="card-grid">
-      <a class="card card-full" href="https://www.tripadvisor.ca/Restaurants-g154982-Brampton_Ontario.html" target="_blank" rel="noopener">
-        <div class="card-label">Browse All</div>
-        <div class="card-title">Restaurants in Brampton</div>
-        <div class="card-desc">1,100+ restaurants rated and reviewed on TripAdvisor -- filter by cuisine, price, and neighbourhood</div>
-      </a>
-      <a class="card" href="https://www.google.com/search?q=restaurants+near+me+brampton" target="_blank" rel="noopener">
-        <div class="card-label">Near You</div>
-        <div class="card-title">Food Near You</div>
-        <div class="card-desc">Open on your phone -- results based on your current location</div>
-      </a>
-      <a class="card" href="https://www.google.com/search?q=best+indian+food+brampton+ontario" target="_blank" rel="noopener">
-        <div class="card-label">Local Favourite</div>
-        <div class="card-title">Indian &amp; South Asian</div>
-        <div class="card-desc">Brampton is known for some of the best South Asian food outside of India</div>
-      </a>
+
+    <!-- LAUNDRY -->
+    <div class="section" id="laundry">
+      <div class="section-header"><span class="section-num">9.</span><span class="section-title">Laundry</span></div>
+      <ul>
+        <li>There are no on-site laundry facilities available to guests.</li>
+        <li>A laundromat is just an <strong>8-minute walk away</strong> at 700 Balmoral Dr.</li>
+      </ul>
+    </div>
+
+    <!-- GROCERY -->
+    <div class="section" id="grocery">
+      <div class="section-header"><span class="section-num">10.</span><span class="section-title">Nearest Grocery</span></div>
+      <ul>
+        <li><strong>No Frills</strong> is located at 700 Balmoral Dr. -- a short walk away.</li>
+      </ul>
+    </div>
+
+    <!-- CHECKOUT -->
+    <div class="section" id="checkout">
+      <div class="section-header"><span class="section-num">11.</span><span class="section-title">Check-Out Reminder</span></div>
+      <p style="font-size:0.88rem; color:var(--mid); font-weight:300; margin-bottom:1.25rem; font-style:italic;">Before you leave, please take a moment to:</p>
+      <ol>
+        <li>Turn off all lights and electronics.</li>
+        <li>Lock doors and securely close all windows.</li>
+        <li>Clean up any dishes.</li>
+        <li>Dispose of all garbage and remove any perishable food items.</li>
+      </ol>
+      <div class="callout" style="margin-top:1.25rem;">Messages sent after midnight will be answered promptly in the morning.</div>
+    </div>
+
+    <div class="thank-you">
+      <p>We hope you have a fantastic stay!</p>
+      <span>MHW Property Management</span>
     </div>
   </div>
-
-  <!-- DELIVERY -->
-  <div class="section" id="delivery">
-    <div class="section-header">
-      <span class="section-icon">&#128666;</span>
-      <span class="section-title">Food Delivery</span>
-    </div>
-    <p class="section-intro">Prefer to stay in? Both major delivery platforms are active in the area with great coverage and quick delivery times.</p>
-    <div class="card-grid">
-      <a class="card" href="https://www.ubereats.com/ca/city/brampton-on" target="_blank" rel="noopener">
-        <div class="card-label">Delivery</div>
-        <div class="card-title">Uber Eats</div>
-        <div class="card-desc">Hundreds of restaurants delivering to your door -- track your order in real time</div>
-      </a>
-      <a class="card" href="https://www.doordash.com/en-CA/food-delivery/brampton-on/" target="_blank" rel="noopener">
-        <div class="card-label">Delivery</div>
-        <div class="card-title">DoorDash</div>
-        <div class="card-desc">Food, grocery, and convenience delivery -- great selection in Brampton</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- SHOPPING -->
-  <div class="section" id="shopping">
-    <div class="section-header">
-      <span class="section-icon">&#127956;</span>
-      <span class="section-title">Shopping</span>
-    </div>
-    <p class="section-intro">Two major malls within easy reach -- one right in Brampton, one in neighbouring Mississauga.</p>
-    <div class="card-grid">
-      <a class="card" href="https://www.bramaleacitycentre.com" target="_blank" rel="noopener">
-        <div class="card-label">In Brampton</div>
-        <div class="card-title">Bramalea City Centre</div>
-        <div class="card-desc">300+ stores, major anchors, right in the city. About 10 min by car.</div>
-      </a>
-      <a class="card" href="https://www.shopsquareone.com" target="_blank" rel="noopener">
-        <div class="card-label">Mississauga -- 20 min</div>
-        <div class="card-title">Square One</div>
-        <div class="card-desc">Largest mall in Ontario. 360+ stores. Worth the short drive.</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- EXPLORE -->
-  <div class="section" id="explore">
-    <div class="section-header">
-      <span class="section-icon">&#127795;</span>
-      <span class="section-title">Explore Brampton</span>
-    </div>
-    <p class="section-intro">More green space per capita than almost any city in the GTA. Parks, conservation areas, and cultural gems -- more than you might expect.</p>
-    <div class="card-grid">
-      <a class="card" href="https://www.tripadvisor.ca/Attractions-g154982-Activities-Brampton_Ontario.html" target="_blank" rel="noopener">
-        <div class="card-label">Discover</div>
-        <div class="card-title">Things To Do</div>
-        <div class="card-desc">Top-rated attractions, activities, and experiences rated by visitors</div>
-      </a>
-      <a class="card" href="https://www.google.com/maps/search/Chinguacousy+Park+Brampton" target="_blank" rel="noopener">
-        <div class="card-label">City Park</div>
-        <div class="card-title">Chinguacousy Park</div>
-        <div class="card-desc">Brampton's beloved landmark park -- splash pad, gardens, skating rink in winter</div>
-      </a>
-      <a class="card" href="https://www.google.com/maps/search/Heart+Lake+Conservation+Area+Brampton" target="_blank" rel="noopener">
-        <div class="card-label">Nature</div>
-        <div class="card-title">Heart Lake Conservation</div>
-        <div class="card-desc">Swimming, fishing, hiking trails -- a real escape, just minutes away</div>
-      </a>
-      <a class="card" href="https://www.google.com/search?q=events+in+brampton+ontario+this+week" target="_blank" rel="noopener">
-        <div class="card-label">What's On</div>
-        <div class="card-title">Events This Week</div>
-        <div class="card-desc">Festivals, markets, concerts and local happenings in Brampton</div>
-      </a>
-    </div>
-    <div class="callout"><strong>Did you know?</strong> Brampton is one of the fastest-growing and most culturally diverse cities in Canada -- over 200 languages are spoken here. The annual Carabram multicultural festival draws thousands each summer.</div>
-  </div>
-
-  <!-- TRANSIT -->
-  <div class="section" id="transit">
-    <div class="section-header">
-      <span class="section-icon">&#128652;</span>
-      <span class="section-title">Getting Around</span>
-    </div>
-    <p class="section-intro">Brampton has good bus coverage and connects to GO Transit for regional travel into Toronto and beyond.</p>
-    <div class="card-grid">
-      <a class="card" href="https://www.brampton.ca/EN/residents/transit" target="_blank" rel="noopener">
-        <div class="card-label">Local Bus</div>
-        <div class="card-title">Brampton Transit</div>
-        <div class="card-desc">Routes, schedules, fares and trip planning for getting around Brampton</div>
-      </a>
-      <a class="card" href="https://www.gotransit.com" target="_blank" rel="noopener">
-        <div class="card-label">Regional Rail</div>
-        <div class="card-title">GO Transit</div>
-        <div class="card-desc">Trains and buses connecting Brampton to Toronto, Mississauga and the GTA</div>
-      </a>
-      <a class="card card-full" href="https://www.google.com/maps/search/Brampton+Transit+near+me" target="_blank" rel="noopener">
-        <div class="card-label">Nearest Stop</div>
-        <div class="card-title">Find a Bus Stop Near You</div>
-        <div class="card-desc">Open on your phone to find the closest Brampton Transit stop to your current location</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- AIRPORT -->
-  <div class="section" id="airport">
-    <div class="section-header">
-      <span class="section-icon">&#9992;</span>
-      <span class="section-title">Pearson Airport</span>
-    </div>
-    <p class="section-intro">Toronto Pearson International Airport is just 10 minutes away -- one of the most convenient locations in the entire GTA for travellers.</p>
-    <div class="card-grid">
-      <a class="card" href="https://www.torontopearson.com" target="_blank" rel="noopener">
-        <div class="card-label">Official Site</div>
-        <div class="card-title">Toronto Pearson (YYZ)</div>
-        <div class="card-desc">Arrivals, departures, terminal maps, parking and ground transportation</div>
-      </a>
-      <a class="card" href="https://www.google.com/maps/dir/current+location/Toronto+Pearson+International+Airport" target="_blank" rel="noopener">
-        <div class="card-label">Directions</div>
-        <div class="card-title">Get to Pearson</div>
-        <div class="card-desc">~10 min by car -- allow extra time during rush hour</div>
-      </a>
-    </div>
-    <div class="callout">Terminal 1 handles most international flights. Terminal 3 handles select domestic and US routes. Check your boarding pass to confirm which terminal you need.</div>
-  </div>
-
-</div>
-
-<div class="footer">
-  <p>Enjoy your time in Brampton!</p>
-  <span>MHW Property Management</span>
 </div>
 
 <script>
+  function checkCode() {
+    var input = document.getElementById('code-input').value.trim();
+    var error = document.getElementById('error-msg');
+    if (input === '5678') {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('content').classList.add('visible');
+      sessionStorage.setItem('hm_auth', '1');
+    } else {
+      error.textContent = 'Incorrect code. Please try again.';
+      document.getElementById('code-input').value = '';
+      document.getElementById('code-input').focus();
+      setTimeout(function() { error.textContent = ''; }, 3000);
+    }
+  }
+  document.getElementById('code-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkCode(); });
+  document.getElementById('code-input').addEventListener('input', function() { if (this.value.length === 4) checkCode(); });
+  if (sessionStorage.getItem('hm_auth') === '1') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('content').classList.add('visible');
+  }
+
+  // Highlight active nav link on scroll
   var sections = document.querySelectorAll('.section[id]');
   var navLinks = document.querySelectorAll('#jump-nav a');
   window.addEventListener('scroll', function() {
