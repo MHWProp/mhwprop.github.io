@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleaning Checklist â€” 22 Deeside</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --charcoal: #1C1C1C;
+    --mid: #5A5550;
+    --light: #9E9890;
+    --accent: #C17F4A;
+    --accent-light: #E8D5BE;
+    --green: #4A7C59;
+    --green-light: #D6E8DC;
+    --rule: #E0D9D0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--charcoal); min-height: 100vh; }
+  #lock-screen { position: fixed; inset: 0; background: var(--charcoal); display: flex; align-items: center; justify-content: center; z-index: 1000; flex-direction: column; gap: 2rem; }
+  #lock-screen .lock-inner { text-align: center; padding: 3rem 2.5rem; background: #242424; border-radius: 16px; width: min(380px, 90vw); border: 1px solid #333; }
+  #lock-screen .lock-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  #lock-screen h2 { font-family: 'DM Serif Display', serif; color: #F7F3EE; font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 400; }
+  #lock-screen p { color: #888; font-size: 0.875rem; margin-bottom: 2rem; font-weight: 300; }
+  #lock-screen input { width: 100%; padding: 0.875rem 1.25rem; background: #1C1C1C; border: 1px solid #444; border-radius: 8px; color: #F7F3EE; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; font-family: 'DM Sans', sans-serif; margin-bottom: 1rem; outline: none; transition: border-color 0.2s; }
+  #lock-screen input:focus { border-color: var(--accent); }
+  #lock-screen button { width: 100%; padding: 0.875rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, transform 0.1s; }
+  #lock-screen button:hover { background: #A86C3A; }
+  #lock-screen button:active { transform: scale(0.98); }
+  #lock-screen .error { color: #E07070; font-size: 0.8rem; margin-top: 0.75rem; height: 1rem; }
+  #content { display: none; max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  #content.visible { display: block; }
+  .page-header { border-bottom: 2px solid var(--charcoal); padding-bottom: 2rem; margin-bottom: 3rem; }
+  .property-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1rem; }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .page-header .subtitle { color: var(--mid); font-size: 0.9rem; font-weight: 300; font-style: italic; }
+  .section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+  .section-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent-light); line-height: 1; flex-shrink: 0; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); letter-spacing: 0.01em; }
+  .subsection { margin-bottom: 1.5rem; }
+  .subsection-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--accent-light); }
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 0.45rem 0 0.45rem 1.5rem; position: relative; font-size: 0.92rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+  ul li::before { content: 'â€”'; position: absolute; left: 0; color: var(--accent); font-weight: 400; }
+  ul li strong { font-weight: 500; color: var(--charcoal); }
+  .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.88rem; line-height: 1.6; color: var(--mid); font-weight: 300; }
+  .callout.warning { border-left-color: #C17F4A; background: #FBF5EE; }
+  .callout.green { border-left-color: var(--green); background: var(--green-light); color: #2E5438; }
+  .thank-you { text-align: center; padding: 3rem 2rem; background: var(--charcoal); border-radius: 12px; margin-top: 3rem; }
+  .thank-you p { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
+  .thank-you span { color: var(--light); font-size: 0.85rem; font-weight: 300; }
+  .top-bar { position: sticky; top: 0; background: rgba(247,243,238,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 100; font-size: 0.8rem; color: var(--mid); }
+  .top-bar strong { color: var(--charcoal); font-weight: 500; }
+  @media (max-width: 600px) { #content { padding: 2rem 1.25rem 5rem; } .section-num { font-size: 1.8rem; } .section-title { font-size: 1.2rem; } }
+</style>
+</head>
+<body>
+<div id="lock-screen">
+  <div class="lock-inner">
+    <span class="lock-icon">ðŸ”’</span>
+    <h2>Staff Access Only</h2>
+    <p>Please enter your access code to continue</p>
+    <input type="password" id="code-input" maxlength="4" placeholder="â€¢â€¢â€¢â€¢" inputmode="numeric" />
+    <button onclick="checkCode()">Enter</button>
+    <div class="error" id="error-msg"></div>
+  </div>
+</div>
+<div id="content">
+  <div class="top-bar"><strong>22 Deeside Crescent â€” Brampton</strong><span>Cleaning Checklist</span></div>
+  <div style="padding: 3rem 0 0;">
+    <div class="page-header">
+      <span class="property-tag">MHW Property Management</span>
+      <h1>Efficient Airbnb<br>Cleaning Checklist</h1>
+      <p class="subtitle">Following this order will help you achieve the best results.</p>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘ </span><span class="section-title">Accessing the Property</span></div>
+      <div class="subsection">
+        <div class="subsection-title">Front Door â€” Unit Entry</div>
+        <ul>
+          <li>Enter through the front door using the door code â€” this will be communicated to you separately</li>
+          <li>Key in the code, wait a second, then turn the deadbolt to unlock</li>
+          <li><strong>To lock from outside:</strong> press the Schlage button and turn the deadbolt to the left â€” no code needed</li>
+          <li>Keep the door locked at all times</li>
+        </ul>
+      </div>
+      <div class="subsection">
+        <div class="subsection-title">Basement / Laundry Access</div>
+        <ul>
+          <li>The washer and dryer are located in the basement</li>
+          <li>Go to the side of the house and enter through the side door using the code provided separately</li>
+          <li>The side door auto-locks 5 seconds after entering the code â€” no need to lock manually</li>
+          <li>Once inside, go down to the basement using the interior basement door</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘¡</span><span class="section-title">Exterior Check â€” On Arrival</span></div>
+      <ul>
+        <li>Check the porch and front steps â€” sweep with the broom if needed</li>
+        <li>Check the side of the house â€” pick up or dispose of any garbage on the ground</li>
+        <li>Do a slow video walk-through of all rooms upon entry</li>
+        <li>Record and photograph anything damaged or unexpected â€” include close-ups of stains or broken items</li>
+        <li><strong>Send videos and photos to WhatsApp right away</strong> so we can address any issues promptly</li>
+        <li>Confirm the TV remote is present and place it under the TV</li>
+      </ul>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘¢</span><span class="section-title">Laundry â€” Start First</span></div>
+      <div class="callout green">Starting laundry first ensures it's done on time. Record how long each cycle takes so you can switch loads without delays.</div>
+      <div class="subsection"><div class="subsection-title">Collect</div><ul><li>Bed sheets and pillowcases</li><li>Comforter covers (wash only if visibly stained or smelly)</li><li>Towels and kitchen cloths</li><li>Shower mats and bar mops used for cleaning</li></ul></div>
+      <div class="callout warning"><strong>Do not overload the machine.</strong> Overloading causes tangling, poor drying, and wasted time rearranging loads. Wash one load at a time.</div>
+      <div class="subsection"><div class="subsection-title">Suggested Order</div><ul><li><strong>Load 1:</strong> Bed sheets, pillowcases, comforter covers</li><li><strong>Load 2:</strong> Towels, kitchen towels, shower mats, bar mops</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Wash Settings</div><ul><li><strong>No visible stains:</strong> short cycle, cold water, 2 rinses, OxiClean</li><li><strong>Visible stains:</strong> regular cycle, hot water, 2 rinses, OxiClean</li><li>OxiClean is safe on colors. If unavailable, bleach can be used on whites only</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Drying &amp; Standards</div><ul><li>Always dry on the highest heat setting</li><li>After drying, check for remaining stains</li><li>If not fully clean, use the spare set from the closet downstairs next to the laundry room</li><li>All towels in the unit must be stain-free â€” stained towels go to the downstairs closet, kept neat and separate</li><li>Always have clean dry bar mops available in the unit during cleaning</li></ul></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘£</span><span class="section-title">Kitchen</span></div>
+      <div class="subsection"><div class="subsection-title">Fridge &amp; Freezer â€” Do First</div><ul><li>Remove and dispose of anything left behind â€” check both fridge and freezer</li><li>Wipe inside with diluted lavender solution; dry with a clean dry bar mop</li><li>Wipe outside doors with bar mop + glass cleaner; dry immediately</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Dishes</div><ul><li>If guests left dirty dishes, take photos before washing</li><li>Dishwasher is disconnected â€” do not use it, but check inside for dishes guests may have left</li><li>Wash all dirty dishes by hand; dry with a bar mop â€” all dishes must be completely dry before storing</li><li>Check cabinets and drawers for streaks or water marks â€” use paper towel + glass cleaner</li><li>Pots and pans that are hard to clean: use a steel wool scrubber</li><li>If a pot or pan is too burned to restore, <strong>inform us immediately</strong> â€” we will replace and file a guest claim</li><li>Unit must be stocked for at least <strong>6 guests</strong> â€” communicate any shortages right away</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Restock Each Cleaning</div><ul><li>1 roll of paper towels</li><li>Dish soap</li><li>1 dish sponge</li><li>1 clean dish cloth</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Dusting Before Wiping</div><ul><li>Dust top of fridge, top of range hood, cabinet tops, and any surface prone to dust accumulation before wiping</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Surfaces â€” Wipe Then Dry Immediately</div><ul><li>Both microwaves (inside and out) â€” <strong>there are two</strong>, check and clean both</li><li>Small appliances, kitchen sink, backsplash, all countertops, cabinet doors</li><li>Range hood outside and especially the top</li><li>Use diluted lavender floor cleaner â€” always dry right away with a clean dry bar mop</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Stove</div><ul><li>Clean the stove top thoroughly</li><li>If scrubbing needed: apply ceramic stovetop cleaner with a paper towel, leave ~10 minutes while working on something else, then scrub, rinse, and dry with bar mop</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Oven</div><ul><li>Check the oven â€” if it needs cleaning, communicate immediately so we can coordinate</li><li>Oven cleaning is an extra chore and will be paid as such</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Dining Area &amp; Soft Furnishings</div><ul><li>Glass dining table: wipe with bar mop + glass cleaner, dry with bar mop</li><li>Dining chairs and sofa: spot clean stains with damp cloth + cleaning solution; dry as much as possible</li><li>Carpet: inspect for stains â€” spot clean with damp cloth and cleaning solution</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Garbage</div><ul><li>Dispose garbage and recycling in the correct large bins on the side of the house</li><li>Line both bins: <strong>black = garbage, blue = recycling</strong> â€” never leave without a liner</li><li>Wipe inside bins with diluted lavender cleaner and dry with bar mop</li><li>Leave 3 extra black bags and 3 extra blue bags in the bin drawer</li><li>Place bins upright (not sideways) â€” the drawer won't close otherwise</li><li>Bins have labels â€” reposition the same way to avoid hitting the drainage pipe under the sink</li><li>Be gentle with cabinet doors â€” if something isn't closing properly, don't force it, ask us</li></ul></div>
+      <div class="callout green">Once the kitchen is done, switch laundry to the dryer and start the second load if needed.</div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘¤</span><span class="section-title">Washroom</span></div>
+      <ul><li>Move all items (bins, soap, shampoo) into the hallway so you can work comfortably</li><li>Dust surfaces prone to dust before cleaning the floor â€” dusting after mopping dirties the floor again</li><li>Vacuum floor first to remove hair â€” hair sticks to a wet bar mop and makes cleaning much harder</li><li>Vacuum again at the end together with the rest of the unit</li></ul>
+      <div class="subsection" style="margin-top:1.25rem">
+        <div class="subsection-title">Shower</div>
+        <ul><li>Spray inside shower walls, niche, corner panels, shower pan, inside glass door, and crevice under door with diluted bleach (1 part bleach to 10 parts water)</li><li>Leave bleach 3â€“5 minutes, then rinse thoroughly</li><li><strong>Dry all shower surfaces completely</strong> â€” walls, shower pan, and glass door inside and out must all be dry</li><li>Remove shoes if needed to reach corners</li></ul>
+        <div class="callout warning">When spraying bleach, avoid getting it on walls or any painted surfaces to prevent damage.</div>
+      </div>
+      <div class="subsection"><div class="subsection-title">Toilet</div><ul><li>Pour concentrated bleach inside bowl and scrub with toilet brush</li><li>Spray outside of bowl with diluted bleach â€” including behind, base, hinges, and hard-to-reach corners</li><li>Leave 2â€“5 minutes, wipe with damp cloth, then dry with clean dry bar mop</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Sink &amp; Vanity</div><ul><li>Clean with diluted bleach mix, dry with bar mop</li><li>Clean inside drawers and under sink cabinet with diluted lavender cleaner; dry with bar mop</li><li>Wipe and dry all washroom items (bottles, soap, bins) before placing back</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Restock Washroom</div><ul><li>Hand soap and shampoo</li><li>1 hand towel on towel rack</li><li>Toilet paper in holder and vanity drawer â€” amount communicated per booking; if unsure, ask</li><li>Bathroom bin: line with small bag; leave extra bags in sink cabinet drawer</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Hallway Closet</div><ul><li>6 large towels</li><li>5 hand towels</li><li>No face towels in the unit</li><li>Extra towels and bedding: downstairs closet beside the laundry room</li></ul></div>
+      <div class="callout">Mop washroom floor with diluted lavender floor cleaner.</div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘¥</span><span class="section-title">Bedrooms &amp; Living Room</span></div>
+      <div class="subsection"><div class="subsection-title">Dusting â€” Before Vacuuming</div><ul><li>Dust all horizontal surfaces gently so dust falls to the floor and gets vacuumed up</li><li>All furniture tops, nightstands, shelves, coffee table, TV stand</li><li>Top of fridge and top of range hood</li><li>Window bottom seals and blinds (dust gently)</li></ul></div>
+      <div class="subsection"><div class="subsection-title">TV &amp; Walls</div><ul><li>Dust the TV gently â€” remove fingerprints with a small amount of window cleaner on a paper towel â€” <strong>do not spray directly on the TV</strong></li><li>Spot clean wall marks gently â€” be careful not to remove paint</li><li>Spot clean any marks on the baseboards</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Beds</div><ul><li>Remove sheets from dryer â€” check for stains or smell before making beds</li><li>Make all beds using double pillowcases for each pillow</li><li>Spray pillows and bed coverings with Island Escape Liv Fresh Linen &amp; Room Spray; also spray sofa cushions and pillows</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Vacuuming</div><ul><li><strong>Empty vacuum canister before and after each use</strong> â€” empty canister only, no need to remove filters</li><li>Store vacuum in hallway closet together with the mop</li><li>Vacuum entire unit including washroom floor</li><li>Vacuum under beds thoroughly</li><li>Vacuum inside closets and the bottom channel of sliding doors</li><li>Inspect carpet for stains â€” spot clean with damp cloth and cleaning solution</li></ul></div>
+      <div class="callout">All cleaning supplies should be stored in the <strong>bottom corner kitchen cabinet</strong>.</div>
+      <div class="subsection"><div class="subsection-title">Mopping</div><ul><li>Use diluted lavender floor cleaner at 1:20 ratio â€” more concentrated leaves the floor sticky</li><li>Spray the Rubbermaid microfiber mop head directly â€” do not spray the floor</li><li>For hardwood: mop must be nearly dry; use the back of mop head to dry as you go</li><li>Mop refill is washable â€” include in laundry when dirty or smelly</li><li>Store mop upside down in hallway closet to dry properly</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Wipe &amp; Sanitize All Touched Surfaces</div><ul><li>TV stand, coffee table, nightstands, top of fridge, wardrobe shelves</li><li>Kitchen cabinet doors and drawer fronts</li><li>Wipe with diluted lavender cleaner; dry with bar mop</li></ul></div>
+      <div class="subsection"><div class="subsection-title">Staging</div><ul><li>Check all wardrobes, drawers, and closets â€” must be clean and empty of guest belongings</li><li>Arrange pillows neatly</li><li>Spray all rooms with lavender air freshener</li><li>Check floors, lights, and overall presentation</li></ul></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-num">â‘¦</span><span class="section-title">Final Steps</span></div>
+      <ul><li>Store any extra washed, stain-free sheets and towels in the basement closet</li><li><strong>Take a final video of the cleaned unit and send to WhatsApp right away</strong></li><li>Communicate if any linens or kitchenware need replacing â€” always enough for 6 guests</li><li>Communicate if anything is worth buying to improve the unit or any worn items need replacing</li><li>Let us know if any supplies are running low for the next cleaning</li><li>No question is a wrong question â€” always ask if anything is unclear</li></ul>
+    </div>
+    <div class="thank-you"><p>Thank you for your hard work!</p><span>MHW Property Management Â· 22 Deeside Crescent, Brampton</span></div>
+  </div>
+</div>
+<script>
+  function checkCode() {
+    const input = document.getElementById('code-input').value.trim();
+    const error = document.getElementById('error-msg');
+    if (input === '4410') {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('content').classList.add('visible');
+      sessionStorage.setItem('cc_auth', '1');
+    } else {
+      error.textContent = 'Incorrect code. Please try again.';
+      document.getElementById('code-input').value = '';
+      document.getElementById('code-input').focus();
+      setTimeout(() => error.textContent = '', 3000);
+    }
+  }
+  document.getElementById('code-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkCode(); });
+  document.getElementById('code-input').addEventListener('input', function() { if (this.value.length === 4) checkCode(); });
+  if (sessionStorage.getItem('cc_auth') === '1') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('content').classList.add('visible');
+  }
+</script>
+</body>
+</html>
