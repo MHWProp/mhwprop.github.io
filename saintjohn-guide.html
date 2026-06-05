@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint John Local Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --charcoal: #1C1C1C;
+    --mid: #5A5550;
+    --light: #9E9890;
+    --accent: #C0624A;
+    --accent-light: #EDD5CE;
+    --rule: #E0D9D0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--charcoal); min-height: 100vh; }
+  #jump-nav { position: sticky; top: 0; background: rgba(247,243,238,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); z-index: 100; padding: 0.6rem 1.25rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  #jump-nav::-webkit-scrollbar { display: none; }
+  #jump-nav a { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 20px; margin-right: 0.35rem; border: 1px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  #jump-nav a:hover { color: var(--accent); border-color: var(--accent-light); background: var(--warm-white); }
+  #jump-nav a.active { color: var(--accent); border-color: var(--accent); background: var(--warm-white); }
+  .hero { background: var(--charcoal); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(192,98,74,0.04) 40px, rgba(192,98,74,0.04) 41px); pointer-events: none; }
+  .hero-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 4px; margin-bottom: 1.25rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 6vw, 3.5rem); font-weight: 400; color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
+  .hero h1 em { color: var(--accent); font-style: italic; }
+  .hero p { color: #888; font-size: 0.95rem; font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+  .page-wrap { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 60px; }
+  .section:last-of-type { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+  .section-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; opacity: 0.85; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); }
+  .section-intro { font-size: 0.92rem; line-height: 1.75; font-weight: 300; color: var(--mid); margin-bottom: 1.25rem; }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+  .card { background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.25rem; text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s; display: block; }
+  .card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(192,98,74,0.1); }
+  .card-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--charcoal); margin-bottom: 0.35rem; line-height: 1.3; }
+  .card-desc { font-size: 0.8rem; color: var(--mid); font-weight: 300; line-height: 1.55; }
+  .card-full { grid-column: 1 / -1; }
+  .link-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1.1rem; background: var(--warm-white); border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: inherit; transition: border-color 0.2s; margin-bottom: 0.65rem; }
+  .link-row:hover { border-color: var(--accent); }
+  .link-row:last-child { margin-bottom: 0; }
+  .link-row-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .link-row-body { flex: 1; }
+  .link-row-title { font-size: 0.9rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.15rem; }
+  .link-row-desc { font-size: 0.78rem; color: var(--mid); font-weight: 300; line-height: 1.5; }
+  .link-row-arrow { font-size: 0.85rem; color: var(--accent-light); flex-shrink: 0; }
+  .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.1rem 0; font-size: 0.88rem; line-height: 1.65; color: var(--mid); font-weight: 300; }
+  .callout strong { color: var(--charcoal); font-weight: 500; }
+  .footer { text-align: center; padding: 3rem 2rem; background: var(--charcoal); }
+  .footer p { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
+  .footer span { color: var(--light); font-size: 0.82rem; font-weight: 300; }
+  @media (max-width: 600px) {
+    .page-wrap { padding: 2rem 1.25rem 5rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .card-full { grid-column: 1; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .section-title { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="jump-nav">
+  <a href="#weather">Weather</a>
+  <a href="#grocery">Grocery</a>
+  <a href="#food">Food</a>
+  <a href="#delivery">Delivery</a>
+  <a href="#shopping">Shopping</a>
+  <a href="#explore">Explore</a>
+  <a href="#ferry">Ferry</a>
+  <a href="#transit">Transit</a>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">Saint John, New Brunswick</span>
+  <h1>Your <em>Local</em><br>Guide</h1>
+  <p>Everything you need to eat, explore, and get around during your stay. We keep this page updated -- bookmark it and check back anytime.</p>
+</div>
+
+<div class="page-wrap">
+
+  <!-- WEATHER -->
+  <div class="section" id="weather">
+    <div class="section-header">
+      <span class="section-icon">&#127748;</span>
+      <span class="section-title">Weather</span>
+    </div>
+    <p class="section-intro">Saint John is known for its dramatic weather -- fog, wind, and sudden changes are part of the charm. Summers are mild (18-25C), winters can be cold and snowy. Always worth checking before heading out.</p>
+    <a class="link-row" href="https://www.theweathernetwork.com/en/city/ca/new-brunswick/saint-john/current" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#127754;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">Saint John Current Weather</div>
+        <div class="link-row-desc">The Weather Network -- current conditions, hourly and 7-day forecast</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+  </div>
+
+  <!-- GROCERY -->
+  <div class="section" id="grocery">
+    <div class="section-header">
+      <span class="section-icon">&#127837;</span>
+      <span class="section-title">Grocery</span>
+    </div>
+    <p class="section-intro">Lancaster Crossing mall is the go-to for groceries and daily essentials -- everything you need in one stop.</p>
+    <a class="link-row" href="https://www.google.com/maps/search/No+Frills+621+Fairville+Blvd+Saint+John+NB" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128722;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">No Frills -- Lancaster Crossing</div>
+        <div class="link-row-desc">621 Fairville Blvd -- full grocery store with fresh produce and everyday essentials</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <a class="link-row" href="https://www.google.com/maps/search/Walmart+621+Fairville+Blvd+Saint+John+NB" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128717;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">Walmart -- Lancaster Crossing</div>
+        <div class="link-row-desc">621 Fairville Blvd -- groceries, household items, pharmacy and more. Open 7am-10pm daily.</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <a class="link-row" href="https://www.instacart.ca" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128666;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">Instacart -- Grocery Delivery</div>
+        <div class="link-row-desc">Order groceries delivered to your door -- fast and convenient</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+  </div>
+
+  <!-- FOOD -->
+  <div class="section" id="food">
+    <div class="section-header">
+      <span class="section-icon">&#127860;</span>
+      <span class="section-title">Food &amp; Drink</span>
+    </div>
+    <p class="section-intro">Saint John has a growing food scene -- fresh seafood, cozy pubs, and great local spots. The uptown area and the waterfront are great places to start.</p>
+    <div class="card-grid">
+      <a class="card card-full" href="https://www.tripadvisor.ca/Restaurants-g154966-Saint_John_New_Brunswick.html" target="_blank" rel="noopener">
+        <div class="card-label">Browse All</div>
+        <div class="card-title">Restaurants in Saint John</div>
+        <div class="card-desc">Top-rated restaurants reviewed by visitors -- filter by cuisine, price, and neighbourhood</div>
+      </a>
+      <a class="card" href="https://www.google.com/search?q=best+seafood+restaurant+saint+john+nb" target="_blank" rel="noopener">
+        <div class="card-label">Local Favourite</div>
+        <div class="card-title">Fresh Seafood</div>
+        <div class="card-desc">Saint John is on the Bay of Fundy -- the seafood here is outstanding</div>
+      </a>
+      <a class="card" href="https://www.google.com/search?q=restaurants+near+me+saint+john+nb" target="_blank" rel="noopener">
+        <div class="card-label">Near You</div>
+        <div class="card-title">Food Near You</div>
+        <div class="card-desc">Open on your phone -- results based on your current location</div>
+      </a>
+    </div>
+    <div class="callout"><strong>Lancaster Crossing</strong> also has KFC, McDonald's, and Stacked Pancake House right in the mall for a quick bite.</div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="section" id="delivery">
+    <div class="section-header">
+      <span class="section-icon">&#128666;</span>
+      <span class="section-title">Food Delivery</span>
+    </div>
+    <p class="section-intro">Prefer to stay in? Food delivery is active in Saint John.</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.ubereats.com/ca/city/saint-john-nb" target="_blank" rel="noopener">
+        <div class="card-label">Delivery</div>
+        <div class="card-title">Uber Eats</div>
+        <div class="card-desc">Restaurants delivering to your door -- track your order in real time</div>
+      </a>
+      <a class="card" href="https://www.doordash.com/food-delivery/saint-john-nb-restaurants/" target="_blank" rel="noopener">
+        <div class="card-label">Delivery</div>
+        <div class="card-title">DoorDash</div>
+        <div class="card-desc">Food and convenience delivery in Saint John</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SHOPPING -->
+  <div class="section" id="shopping">
+    <div class="section-header">
+      <span class="section-icon">&#127956;</span>
+      <span class="section-title">Shopping</span>
+    </div>
+    <p class="section-intro">Two main shopping destinations -- one nearby on the west side, one larger mall on the east end.</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.google.com/maps/place/Lancaster+Crossing/@45.2660,-66.1025,17z" target="_blank" rel="noopener">
+        <div class="card-label">Nearby -- West Side</div>
+        <div class="card-title">Lancaster Crossing</div>
+        <div class="card-desc">621 Fairville Blvd -- Walmart, No Frills, Shoppers Drug Mart, Planet Fitness, KFC, McDonald's, library and more</div>
+      </a>
+      <a class="card" href="https://www.mcallisterplace.ca" target="_blank" rel="noopener">
+        <div class="card-label">Largest Mall</div>
+        <div class="card-title">McAllister Place</div>
+        <div class="card-desc">Largest shopping mall in the area -- fashion, services, dining and more on the east side</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- EXPLORE -->
+  <div class="section" id="explore">
+    <div class="section-header">
+      <span class="section-icon">&#127795;</span>
+      <span class="section-title">Explore Saint John</span>
+    </div>
+    <p class="section-intro">Saint John is Canada's oldest incorporated city, perched on the Bay of Fundy -- home to the world's highest tides. There is a lot to discover.</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.tripadvisor.ca/Attractions-g154966-Activities-Saint_John_New_Brunswick.html" target="_blank" rel="noopener">
+        <div class="card-label">Discover</div>
+        <div class="card-title">Things To Do</div>
+        <div class="card-desc">Top-rated attractions and experiences rated by visitors</div>
+      </a>
+      <a class="card" href="https://www.google.com/maps/search/Reversing+Falls+Saint+John+NB" target="_blank" rel="noopener">
+        <div class="card-label">Must-See</div>
+        <div class="card-title">Reversing Falls</div>
+        <div class="card-desc">The famous tidal phenomenon where the Saint John River reverses direction -- a unique natural wonder</div>
+      </a>
+      <a class="card" href="https://www.google.com/maps/search/Market+Square+Saint+John+NB" target="_blank" rel="noopener">
+        <div class="card-label">Downtown</div>
+        <div class="card-title">Market Square &amp; Waterfront</div>
+        <div class="card-desc">Historic waterfront with shops, restaurants, and the Saint John City Market -- Canada's oldest farmers market</div>
+      </a>
+      <a class="card" href="https://www.google.com/maps/search/Bayshore+Beach+Saint+John+NB" target="_blank" rel="noopener">
+        <div class="card-label">Near You</div>
+        <div class="card-title">Bayshore Beach</div>
+        <div class="card-desc">A short walk from the property -- great spot to enjoy the Bay of Fundy</div>
+      </a>
+      <a class="card" href="https://www.google.com/maps/search/Irving+Nature+Park+Saint+John+NB" target="_blank" rel="noopener">
+        <div class="card-label">Nature</div>
+        <div class="card-title">Irving Nature Park</div>
+        <div class="card-desc">600 acres of coastal trails, forests, and stunning Bay of Fundy views -- free to visit</div>
+      </a>
+      <a class="card" href="https://www.google.com/search?q=events+in+saint+john+nb+this+week" target="_blank" rel="noopener">
+        <div class="card-label">What's On</div>
+        <div class="card-title">Events This Week</div>
+        <div class="card-desc">Festivals, markets, concerts and local happenings in Saint John</div>
+      </a>
+    </div>
+    <div class="callout"><strong>Tip:</strong> The Bay of Fundy has the highest tides in the world -- up to 16 metres. Tide timing changes daily so check a tide chart if you plan to visit the beaches or Reversing Falls.</div>
+  </div>
+
+  <!-- FERRY -->
+  <div class="section" id="ferry">
+    <div class="section-header">
+      <span class="section-icon">&#9973;</span>
+      <span class="section-title">Ferry &amp; Day Trips</span>
+    </div>
+    <p class="section-intro">The Bay of Fundy islands are one of the great hidden gems of Atlantic Canada -- accessible by ferry for a memorable day trip.</p>
+    <a class="link-row" href="https://deerisland.coastaltransport.ca/schedule.html" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#9973;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">Deer Island Ferry -- FREE</div>
+        <div class="link-row-desc">Free government ferry from Letete to Deer Island -- a peaceful island escape on the Bay of Fundy</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <a class="link-row" href="https://www.gnb.ca/ferries" target="_blank" rel="noopener">
+      <span class="link-row-icon">&#128506;</span>
+      <div class="link-row-body">
+        <div class="link-row-title">NB Government Ferries</div>
+        <div class="link-row-desc">Full list of New Brunswick government ferry routes and schedules</div>
+      </div>
+      <span class="link-row-arrow">&#8594;</span>
+    </a>
+    <div class="callout"><strong>Note:</strong> The Grand Manan ferry is operated by Coastal Transport and is a paid service -- not a government ferry. Schedules and fares at grandmanan.coastaltransport.ca</div>
+  </div>
+
+  <!-- TRANSIT -->
+  <div class="section" id="transit">
+    <div class="section-header">
+      <span class="section-icon">&#128652;</span>
+      <span class="section-title">Getting Around</span>
+    </div>
+    <p class="section-intro">Saint John is a driving city -- a car is the easiest way to get around. Transit and ride-share are available if needed.</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.saintjohn.ca/en/transportation-and-parking/transit/saint-john-transit" target="_blank" rel="noopener">
+        <div class="card-label">Local Bus</div>
+        <div class="card-title">Saint John Transit</div>
+        <div class="card-desc">Routes, schedules, and fares for getting around the city by bus</div>
+      </a>
+      <a class="card" href="https://www.uber.com/ca/en/ride/" target="_blank" rel="noopener">
+        <div class="card-label">Ride-Share</div>
+        <div class="card-title">Uber</div>
+        <div class="card-desc">Uber is available in Saint John for quick rides around the city</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Enjoy your time in Saint John!</p>
+  <span>MHW Property Management</span>
+</div>
+
+<script>
+  var sections = document.querySelectorAll('.section[id]');
+  var navLinks = document.querySelectorAll('#jump-nav a');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 80;
+    sections.forEach(function(section) {
+      if (section.offsetTop <= scrollY && section.offsetTop + section.offsetHeight > scrollY) {
+        navLinks.forEach(function(a) { a.classList.remove('active'); });
+        var active = document.querySelector('#jump-nav a[href="#' + section.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
