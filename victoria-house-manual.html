@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --charcoal: #1C1C1C;
+    --mid: #5A5550;
+    --light: #9E9890;
+    --accent: #C0624A;
+    --accent-light: #EDD5CE;
+    --rule: #E0D9D0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--charcoal); min-height: 100vh; }
+
+  /* --- LOCK SCREEN --- */
+  #lock-screen { position: fixed; inset: 0; background: var(--charcoal); display: flex; align-items: center; justify-content: center; z-index: 1000; flex-direction: column; gap: 2rem; }
+  #lock-screen .lock-inner { text-align: center; padding: 3rem 2.5rem; background: #242424; border-radius: 16px; width: min(380px, 90vw); border: 1px solid #333; }
+  #lock-screen .lock-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  #lock-screen h2 { font-family: 'DM Serif Display', serif; color: #F7F3EE; font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 400; }
+  #lock-screen p { color: #888; font-size: 0.875rem; margin-bottom: 2rem; font-weight: 300; }
+  #lock-screen input { width: 100%; padding: 0.875rem 1.25rem; background: #1C1C1C; border: 1px solid #444; border-radius: 8px; color: #F7F3EE; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; font-family: 'DM Sans', sans-serif; margin-bottom: 1rem; outline: none; transition: border-color 0.2s; }
+  #lock-screen input:focus { border-color: var(--accent); }
+  #lock-screen button { width: 100%; padding: 0.875rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, transform 0.1s; }
+  #lock-screen button:hover { background: #A8503A; }
+  #lock-screen button:active { transform: scale(0.98); }
+  #lock-screen .error { color: #E07070; font-size: 0.8rem; margin-top: 0.75rem; height: 1rem; }
+
+  /* --- CONTENT --- */
+  #content { display: none; }
+  #content.visible { display: block; }
+
+  /* --- STICKY NAV --- */
+  #jump-nav { position: sticky; top: 0; background: rgba(247,243,238,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); z-index: 100; padding: 0.6rem 1.25rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  #jump-nav::-webkit-scrollbar { display: none; }
+  #jump-nav a { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 20px; margin-right: 0.35rem; border: 1px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  #jump-nav a:hover { color: var(--accent); border-color: var(--accent-light); background: var(--warm-white); }
+  #jump-nav a.active { color: var(--accent); border-color: var(--accent); background: var(--warm-white); }
+
+  /* --- MAIN CONTENT --- */
+  .page-wrap { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .page-header { border-bottom: 2px solid var(--charcoal); padding-bottom: 2rem; margin-bottom: 3rem; }
+  .property-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1rem; }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .page-header .subtitle { color: var(--mid); font-size: 0.9rem; font-weight: 300; font-style: italic; }
+
+  .section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 60px; }
+  .section:last-of-type { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+  .section-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent-light); line-height: 1; flex-shrink: 0; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); }
+
+  .subsection { margin-bottom: 1.5rem; }
+  .subsection-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--accent-light); }
+
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 0.45rem 0 0.45rem 1.5rem; position: relative; font-size: 0.92rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+  ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent); font-weight: 400; }
+  ul li strong { font-weight: 500; color: var(--charcoal); }
+
+  ol { padding-left: 1.5rem; }
+  ol li { padding: 0.45rem 0; font-size: 0.92rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+  ol li strong { font-weight: 500; }
+
+  .callout { background: var(--warm-white); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.88rem; line-height: 1.6; color: var(--mid); font-weight: 300; }
+  .callout.warning { border-left-color: #B85C3A; background: #FAF0EC; color: #6B3A2A; }
+
+  .thank-you { text-align: center; padding: 3rem 2rem; background: var(--charcoal); border-radius: 12px; margin-top: 3rem; }
+  .thank-you p { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--cream); font-weight: 400; font-style: italic; margin-bottom: 0.5rem; }
+  .thank-you span { color: var(--light); font-size: 0.85rem; font-weight: 300; }
+
+  @media (max-width: 600px) {
+    .page-wrap { padding: 2rem 1.25rem 5rem; }
+    .section-num { font-size: 1.8rem; }
+    .section-title { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="lock-screen">
+  <div class="lock-inner">
+    <span class="lock-icon">&#128274;</span>
+    <h2>Guest Access</h2>
+    <p>Please enter the access code provided by your host</p>
+    <input type="password" id="code-input" maxlength="4" placeholder="****" inputmode="numeric" />
+    <button onclick="checkCode()">Enter</button>
+    <div class="error" id="error-msg"></div>
+  </div>
+</div>
+
+<div id="content">
+
+  <nav id="jump-nav">
+    <a href="#access">Access</a>
+    <a href="#parking">Parking</a>
+    <a href="#guidelines">Guidelines</a>
+    <a href="#shower">Shower</a>
+    <a href="#tv">TV</a>
+    <a href="#washroom">Washroom</a>
+    <a href="#garbage">Garbage</a>
+    <a href="#bedrooms">Bedrooms</a>
+    <a href="#laundry">Laundry</a>
+    <a href="#kitchen">Kitchen</a>
+    <a href="#checkout">Check-Out</a>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="page-header">
+      <span class="property-tag">Guest House Manual</span>
+      <h1>Your Home Away<br>From Home</h1>
+      <p class="subtitle">Everything you need for a comfortable stay.</p>
+    </div>
+
+    <!-- WELCOME -->
+    <div class="section" style="border-bottom: 1px solid var(--rule); margin-bottom: 3rem; padding-bottom: 3rem;">
+      <div class="section-header"><span class="section-num">&#9786;</span><span class="section-title">Welcome</span></div>
+      <p style="font-size:0.95rem; line-height:1.75; font-weight:300; color:var(--mid);">We are so glad to have you here! This guide covers everything you need to feel right at home. If anything comes up during your stay, do not hesitate to reach out -- we are happy to help.</p>
+    </div>
+
+    <!-- ACCESS -->
+    <div class="section" id="access">
+      <div class="section-header"><span class="section-num">1.</span><span class="section-title">Unit Access</span></div>
+      <ul>
+        <li><strong>Check-in time is 2:00 PM and check-out time is 10:00 AM.</strong></li>
+        <li>Please let us know your expected arrival time ahead of time so we can be ready for you.</li>
+        <li>Access will be provided to the guest who made the booking -- <strong>photo ID must match the name on the reservation.</strong></li>
+        <li>For security reasons, we cannot hand over keys or codes to anyone else at check-in.</li>
+      </ul>
+      <div class="callout">If you would like to adjust your dates or extend your stay, just let us know after check-in and we will do our best to help.</div>
+    </div>
+
+    <!-- PARKING -->
+    <div class="section" id="parking">
+      <div class="section-header"><span class="section-num">2.</span><span class="section-title">Parking</span></div>
+      <ul>
+        <li>For easier and safer access, we recommend parking in the space <strong>parallel to the front line of the house</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- GUIDELINES -->
+    <div class="section" id="guidelines">
+      <div class="section-header"><span class="section-num">3.</span><span class="section-title">House Guidelines</span></div>
+      <p style="font-size:0.88rem; color:var(--mid); font-weight:300; margin-bottom:1.25rem; font-style:italic;">A few friendly reminders to keep things comfortable for everyone.</p>
+      <ul>
+        <li>No pets or visiting animals inside the unit, please.</li>
+        <li>Smoking is not permitted indoors or near any door or window.</li>
+        <li>Please remove your shoes when you come in -- it helps keep the space cozy and tidy.</li>
+        <li>Overnight visitors are not permitted.</li>
+        <li><strong>Quiet hours: 11 PM to 8 AM.</strong></li>
+        <li>The nightly fee covers normal upkeep -- heavily stained duvets, bed covers, or rugs may require an extra charge.</li>
+        <li>If you notice anything that needs attention on arrival, just let us know and we will take care of it right away.</li>
+      </ul>
+    </div>
+
+    <!-- SHOWER -->
+    <div class="section" id="shower">
+      <div class="section-header"><span class="section-num">4.</span><span class="section-title">Shower Controls</span></div>
+      <p style="font-size:0.88rem; color:var(--mid); font-weight:300; margin-bottom:1.25rem; font-style:italic;">The shower faucet works a bit differently than standard taps.</p>
+      <ul>
+        <li><strong>Lift the handle up</strong> to turn on the water.</li>
+        <li>Move the handle <strong>left for hot</strong> water and <strong>right for cold</strong>.</li>
+        <li>The handle does not rotate -- it only moves like a joystick (up, left, or right).</li>
+      </ul>
+      <div class="callout warning">Please do not try to rotate the handle -- it can cause damage. Use it gently.</div>
+    </div>
+
+    <!-- TV -->
+    <div class="section" id="tv">
+      <div class="section-header"><span class="section-num">5.</span><span class="section-title">TV</span></div>
+      <ul>
+        <li>Enjoy <strong>basic cable (Samsung Plus), Netflix, Amazon Prime</strong>, and lots of other streaming apps.</li>
+        <li>Before you check out, please leave the remote somewhere visible in the living room.</li>
+      </ul>
+    </div>
+
+    <!-- WASHROOM -->
+    <div class="section" id="washroom">
+      <div class="section-header"><span class="section-num">6.</span><span class="section-title">Washroom</span></div>
+      <div class="callout warning">
+        <strong>Important -- Please Read</strong><br><br>
+        Please flush only toilet paper. All other items -- tissues, paper towels, pads, wipes, Q-tips, tampons -- should go in the bin.<br><br>
+        Flushing anything else can clog the toilet, and guests are responsible for any repairs.
+      </div>
+    </div>
+
+    <!-- GARBAGE -->
+    <div class="section" id="garbage">
+      <div class="section-header"><span class="section-num">7.</span><span class="section-title">Garbage</span></div>
+      <ul>
+        <li>Please use the bin <strong>under the kitchen sink</strong> for daily waste.</li>
+        <li>If you need to empty it, there is a larger bin by the <strong>back stairs near the kitchen</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- BEDROOMS -->
+    <div class="section" id="bedrooms">
+      <div class="section-header"><span class="section-num">8.</span><span class="section-title">Bedrooms</span></div>
+      <ul>
+        <li>The first and second bedrooms each have a comfortable <strong>queen-sized bed</strong>.</li>
+        <li>Extra towels and toilet paper are in the <strong>bathroom closet or drawer</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- LAUNDRY -->
+    <div class="section" id="laundry">
+      <div class="section-header"><span class="section-num">9.</span><span class="section-title">Laundry</span></div>
+      <ul>
+        <li>Laundry is available on-site for your personal items only.</li>
+        <li><strong>One courtesy wash and dry cycle is included.</strong> Additional loads are $5 per wash or dry.</li>
+        <li>Please do not wash any unit linens -- those are handled by us.</li>
+      </ul>
+    </div>
+
+    <!-- KITCHEN -->
+    <div class="section" id="kitchen">
+      <div class="section-header"><span class="section-num">10.</span><span class="section-title">Kitchen</span></div>
+      <ul>
+        <li>A few pots and basic items like salt and pepper are available for simple, quick meals.</li>
+        <li>The kitchen does not have an exhaust fan -- please keep cooking on the lighter side to avoid strong smells lingering in the space. We appreciate your understanding.</li>
+      </ul>
+      <div class="subsection" style="margin-top:1.5rem;">
+        <div class="subsection-title">Dishwasher Use</div>
+        <ol>
+          <li>Place cups and glasses on the top rack facing down and flatware in the basket below.</li>
+          <li>Use only dishwasher soap in the compartment on the door, then close the lid.</li>
+          <li>Close the door, lock it, and select your preferred cycle. The regular wash usually works best.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- CHECKOUT -->
+    <div class="section" id="checkout">
+      <div class="section-header"><span class="section-num">11.</span><span class="section-title">Check-Out Reminder</span></div>
+      <p style="font-size:0.88rem; color:var(--mid); font-weight:300; margin-bottom:1.25rem; font-style:italic;">Before you leave, please take a moment to:</p>
+      <ol>
+        <li>Turn off all lights and electronics.</li>
+        <li>Ensure all doors and windows are closed and locked.</li>
+        <li>Please leave no dirty dishes behind.</li>
+        <li>No need to strip the beds.</li>
+        <li>Place used towels in the laundry basket inside the bathroom closet.</li>
+      </ol>
+      <div class="callout" style="margin-top:1.25rem;">The best way to reach us is through the Airbnb app -- please have it ready before arrival. We are available until 10 PM; messages received after that will be answered the next morning. In case of emergency, you can call us anytime.</div>
+    </div>
+
+    <div class="thank-you">
+      <p>We hope you have a fantastic stay!</p>
+      <span>MHW Property Management</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function checkCode() {
+    var input = document.getElementById('code-input').value.trim();
+    var error = document.getElementById('error-msg');
+    if (input === '5678') {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('content').classList.add('visible');
+      sessionStorage.setItem('hm_auth', '1');
+    } else {
+      error.textContent = 'Incorrect code. Please try again.';
+      document.getElementById('code-input').value = '';
+      document.getElementById('code-input').focus();
+      setTimeout(function() { error.textContent = ''; }, 3000);
+    }
+  }
+  document.getElementById('code-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkCode(); });
+  document.getElementById('code-input').addEventListener('input', function() { if (this.value.length === 4) checkCode(); });
+  if (sessionStorage.getItem('hm_auth') === '1') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('content').classList.add('visible');
+  }
+
+  var sections = document.querySelectorAll('.section[id]');
+  var navLinks = document.querySelectorAll('#jump-nav a');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 80;
+    sections.forEach(function(section) {
+      if (section.offsetTop <= scrollY && section.offsetTop + section.offsetHeight > scrollY) {
+        navLinks.forEach(function(a) { a.classList.remove('active'); });
+        var active = document.querySelector('#jump-nav a[href="#' + section.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
