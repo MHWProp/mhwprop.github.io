@@ -33,7 +33,7 @@
   #lock-screen .error { color: #E07070; font-size: 0.8rem; margin-top: 0.75rem; height: 1rem; }
 
   /* --- CONTENT --- */
-  #content { display: none; }
+  #content { display: block; }
   #content.visible { display: block; }
 
   /* --- STICKY NAV --- */
@@ -84,17 +84,6 @@
 </head>
 <body>
 
-<div id="lock-screen">
-  <div class="lock-inner">
-    <span class="lock-icon">&#128274;</span>
-    <h2>Guest Access</h2>
-    <p>Please enter the access code provided by your host</p>
-    <input type="password" id="code-input" maxlength="4" placeholder="****" inputmode="numeric" />
-    <button onclick="checkCode()">Enter</button>
-    <div class="error" id="error-msg"></div>
-  </div>
-</div>
-
 <div id="content">
 
   <nav id="jump-nav">
@@ -140,8 +129,9 @@
     <div class="section" id="parking">
       <div class="section-header"><span class="section-num">2.</span><span class="section-title">Parking</span></div>
       <ul>
-        <li>For easier and safer access, we recommend parking in the space <strong>parallel to the front line of the house</strong>.</li>
+        <li>For easier and safer access, we recommend parking in the space <strong>parallel to the front line of the house</strong>, as shown in the picture below.</li>
       </ul>
+      <img src="parking-diagram.jpg" alt="Where to park: side by side, parallel to the front of the house" width="600" height="996" style="width:100%; max-width:400px; height:auto; border-radius:8px; margin-top:1rem; display:block;" />
     </div>
 
     <!-- GUIDELINES -->
@@ -257,27 +247,6 @@
 </div>
 
 <script>
-  function checkCode() {
-    var input = document.getElementById('code-input').value.trim();
-    var error = document.getElementById('error-msg');
-    if (input === '5678') {
-      document.getElementById('lock-screen').style.display = 'none';
-      document.getElementById('content').classList.add('visible');
-      sessionStorage.setItem('hm_auth', '1');
-    } else {
-      error.textContent = 'Incorrect code. Please try again.';
-      document.getElementById('code-input').value = '';
-      document.getElementById('code-input').focus();
-      setTimeout(function() { error.textContent = ''; }, 3000);
-    }
-  }
-  document.getElementById('code-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkCode(); });
-  document.getElementById('code-input').addEventListener('input', function() { if (this.value.length === 4) checkCode(); });
-  if (sessionStorage.getItem('hm_auth') === '1') {
-    document.getElementById('lock-screen').style.display = 'none';
-    document.getElementById('content').classList.add('visible');
-  }
-
   var sections = document.querySelectorAll('.section[id]');
   var navLinks = document.querySelectorAll('#jump-nav a');
   window.addEventListener('scroll', function() {
